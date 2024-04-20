@@ -1,0 +1,41 @@
+body {
+    background-color: rgb(90, 135, 200);
+}
+
+#container {
+    text-align: center;
+}
+
+#text-field {
+    width: 400px;
+    height: 100px;
+    font-size: 25px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+    border: 5px solid rgb(191, 192, 194);
+    margin-bottom: 10px;
+}
+
+#new-item,
+#add-item {
+    margin: 50px auto;
+    height: 30px;
+    width: 100px;
+    font-size: 20px;
+    background-color: darkgray;
+}
+
+#output {
+    font-size: 25px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-bottom: 10px;
+}
+
+#h2u {
+    background-color: rgb(191, 192, 194);
+    margin-top: 50px;
+    text-align: center;
+    font-size: 15px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: b;
+}
