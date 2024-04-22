@@ -23,10 +23,7 @@ body {
     width: 100px;
     font-size: 20px;
     background-color: darkgray;
-}
-
-#button {
-  display: block;
+    display: block;
 }
 
 #output {
