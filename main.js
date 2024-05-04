@@ -21,25 +21,67 @@ document.getElementById('upload-form').addEventListener('submit', function(e) {
 
 function addItemsFromFile(fileContent) {
     let lines = fileContent.split('\n');
+    let itemsFromUpload = [];
     lines.forEach(function(line) {
         let itemsInLine = line.split(','); // Split the line by commas
         itemsInLine.forEach(function(item) {
             let trimmedItem = item.trim();
             if (trimmedItem !== "") {
-                items.push(trimmedItem);
+                itemsFromUpload.push(trimmedItem);
             }
         });
     });
-    output.innerHTML = "Items added from file: " + items.length;
+
+    let inputText = textField.value.trim();
+    let newItems = [];
+    if (inputText !== "") {
+        newItems = inputText.split(",");
+    }
+
+    items = [...newItems, ...itemsFromUpload]; // Concatenate items from text field and file
+    output.innerHTML = items.map(item => '<span class="bubble">' + item + '</span>').join('');
 }
 
 
 nitem.addEventListener('click', function(){
-    var randomItem = items[Math.floor(Math.random() * items.length)]
-    output.innerHTML = randomItem;
+    if (items.length > 0) {
+        var iterations = 10; // Number of iterations for spinning
+        var currentIndex = 0; // Index to start from
+        var interval = setInterval(function() {
+            output.innerHTML = items.map((item, index) => {
+                if (index === currentIndex) {
+                    return '<span class="bubble glow">' + item + '</span>';
+                } else {
+                    return '<span class="bubble">' + item + '</span>';
+                }
+            }).join('');
+            
+            currentIndex = (currentIndex + 1) % items.length; // Move to the next item
+            iterations--;
+
+            var audio = new Audio('spin-1.mp3');
+            audio.play();
+
+            if (iterations === 0) {
+                clearInterval(interval); // Stop spinning
+                var randomIndex = Math.floor(Math.random() * items.length);
+                output.innerHTML = items.map((item, index) => {
+                    if (index === randomIndex) {
+                        return '<span class="bubble glow">' + item + '</span>';
+                    } else {
+                        return '<span class="bubble">' + item + '</span>';
+                    }
+                }).join('');
+            }
+        }, 200); // Time interval for each iteration
+    } else {
+        output.innerHTML = "No items added.";
+    }
 });
 
-aitem.addEventListener('click', function(){
+
+// Update the event listener for the text field to listen for input changes
+textField.addEventListener('input', function() {
     // Get the value from the text field
     let inputText = textField.value.trim();
 
@@ -47,6 +89,9 @@ aitem.addEventListener('click', function(){
     if(inputText !== "") {
         // Split the input text by commas
         let newItems = inputText.split(",");
+
+        // Clear the items array
+        items = [];
 
         // Add each item to the items array
         newItems.forEach(function(item) {
@@ -56,9 +101,10 @@ aitem.addEventListener('click', function(){
             }
         });
 
-        // Clear the text field
-        textField.value = "";
         // Optionally, update the output to show the added items
-        output.innerHTML = "Items added: " + newItems.join(", ");
+        let itemsHTML = newItems.map(item => '<span class="bubble">' + item.trim() + '</span>').join('');
+        output.innerHTML = itemsHTML;
+    } else {
+        output.innerHTML = "No items added.";
     }
 });
