@@ -45,7 +45,7 @@ function addItemsFromFile(fileContent) {
 
 nitem.addEventListener('click', function(){
     if (items.length > 0) {
-        var iterations = 10; // Number of iterations for spinning
+        var iterations = (items.length * 2); // Number of iterations for spinning
         var currentIndex = 0; // Index to start from
         var interval = setInterval(function() {
             output.innerHTML = items.map((item, index) => {
